@@ -1,7 +1,11 @@
 import Head from "next/head";
+import { useRecoilValue } from "recoil";
+import { modalState, movieState } from "../atoms/modalAtom";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 import Row from "../components/Row";
+import useAuth from "../hooks/useAuth";
 import { Movie } from "../typing";
 import requests from "../utils/requests";
 
@@ -26,13 +30,19 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
+  const { loading } = useAuth();
+  const showModal = useRecoilValue(modalState);
+  const movie = useRecoilValue(movieState);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="relative h-screen lg:h-[140vh] bg-gradient-to-b">
       <Head>
         <title>Netflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      {showModal && <Modal />}
       <Header />
       <main className="relative pb-24 pl-4 lg:pl-16 lg:space-y-24 ">
         <Banner netflixOriginals={netflixOriginals} />
@@ -42,7 +52,6 @@ const Home = ({
           <Row title="Action Thrillers" movies={actionMovies} />
           {/* My List */}
           {/* {list.length > 0 && <Row title="My List" movies={list} />} */}
-
           <Row title="Comedies" movies={comedyMovies} />
           <Row title="Scary Movies" movies={horrorMovies} />
           <Row title="Romance Movies" movies={romanceMovies} />

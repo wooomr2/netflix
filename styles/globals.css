@@ -28,4 +28,14 @@
     @apply absolute top-0 bottom-0 z-40 m-auto h-9 w-9
     cursor-pointer transition opacity-0 group-hover:opacity-100 hover:scale-125
   }
+
+  .input {
+    @apply w-full rounded outline-none px-5 py-3.5 
+    placeholder-[gray] bg-[#333] focus:bg-[#454545]
+  }
+
+  .modalBtn {
+    @apply flex h-11 w-11 items-center justify-center rounded-full
+    border-2 border-[gray] bg-[#2a2a2a]/60 hover:border-white hover:bg-white/10
+  }
 }
