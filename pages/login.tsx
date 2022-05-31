@@ -67,6 +67,7 @@ function Login() {
       >
         <h1 className="text-4xl font-semibold">Sign in</h1>
         <div className="space-y-4">
+          {/* Email */}
           <label className="inline-block w-full">
             <input
               type="email"
@@ -82,6 +83,7 @@ function Login() {
               </p>
             )}
           </label>
+          {/* Password */}
           <label className="inline-block w-full">
             <input
               type="password"

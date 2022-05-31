@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDtAWFKf2zi-uhFtjG9ZW8PyqGKI-XdIJM",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API,
   authDomain: "netflix-aba8a.firebaseapp.com",
   projectId: "netflix-aba8a",
   storageBucket: "netflix-aba8a.appspot.com",
