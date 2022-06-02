@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../libs/firebase";
 
 interface IAuth {
   signup: (email: string, password: string) => Promise<void>;

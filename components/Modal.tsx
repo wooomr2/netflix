@@ -1,4 +1,5 @@
 import {
+  CheckIcon,
   PlusIcon,
   ThumbUpIcon,
   VolumeOffIcon,
@@ -11,20 +12,32 @@ import { modalState, movieState } from "../atoms/modalAtom";
 import ReactPlayer from "react-player";
 import { useEffect, useState } from "react";
 import { Element, Genre, Movie } from "../typing";
-import { DocumentData } from "firebase/firestore";
+import { collection, deleteDoc, doc, DocumentData, onSnapshot, setDoc } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
 import { API_KEY, BASE_URL } from "../utils/requests";
 import { FaPlay } from "react-icons/fa";
+import { db } from "../libs/firebase";
+import toast, { Toaster } from "react-hot-toast";
 
 function Modal() {
   const [showModal, setShowModal] = useRecoilState(modalState);
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
-  const [addedToList, setAddedToList] = useState(false);
+  const [isAddedToList, setIsAddedToList] = useState(false);
   const [muted, setMuted] = useState(true);
   const [trailer, setTrailer] = useState("");
   const [genres, setGenres] = useState<Genre[]>([]);
   const [movies, setMovies] = useState<DocumentData[] | Movie[]>([]);
   const { user } = useAuth();
+
+  const toastStyle = {
+    background: "white",
+    color: "black",
+    fontWeight: "bold",
+    fontSize: "16px",
+    padding: "15px",
+    borderRadius: "9999px",
+    maxWidth: "1000px",
+  };
 
   useEffect(() => {
     if (!currentMovie) return;
@@ -48,8 +61,64 @@ function Modal() {
     fetchMovie();
   }, [currentMovie]);
 
+  // Find all the movies in users myList
+  useEffect(() => {
+    if (user) {
+      return onSnapshot(
+        collection(db, "customers", user.uid, "myList"),
+        (snapshot) => setMovies(snapshot.docs)
+      );
+    }
+  }, [user, currentMovie?.id]);
+
+  // Check if the currentMovie is already in the users myList
+  //findIndex ==> true면 1 아니면 -1
+  useEffect(
+    () =>
+      setIsAddedToList(
+        movies.findIndex((result) => result.data().id === currentMovie?.id) !==
+          -1
+      ),
+    [movies]
+  );
+
   const handleClose = () => {
     setShowModal(false);
+    setCurrentMovie(null)
+    toast.dismiss()
+  };
+
+  const handleList = async () => {
+    if (isAddedToList) {
+      await deleteDoc(
+        doc(db, "customers", user!.uid, "myList", currentMovie?.id.toString()!)
+      );
+
+      toast(
+        `${
+          currentMovie?.title || currentMovie?.original_name
+        } My List에서 제외.`,
+        {
+          duration: 5000,
+          style: toastStyle,
+        }
+      );
+    } else {
+      await setDoc(
+        doc(db, "customers", user!.uid, "myList", currentMovie?.id.toString()!),
+        {
+          ...currentMovie,
+        }
+      );
+
+      toast(
+        `${currentMovie?.title || currentMovie?.original_name} My List에 추가.`,
+        {
+          duration: 5000,
+          style: toastStyle,
+        }
+      );
+    }
   };
 
   return (
@@ -60,6 +129,7 @@ function Modal() {
         overflow-hidden overflow-y-scroll scrollbar-hide"
     >
       <>
+        <Toaster position="bottom-center" />
         {/* X close button */}
         <button
           onClick={handleClose}
@@ -90,8 +160,12 @@ function Modal() {
                 Play
               </button>
 
-              <button className="modalBtn">
-                <PlusIcon className="h-7 w-7" />
+              <button className="modalBtn" onClick={handleList}>
+                {isAddedToList ? (
+                  <CheckIcon className="h-7 w-7" />
+                ) : (
+                  <PlusIcon className="h-7 w-7" />
+                )}
               </button>
 
               <button className="modalBtn">

@@ -33,7 +33,7 @@ function Login() {
     md:items-center md:justify-center md:bg-transparent"
     >
       <Head>
-        <title>Netflix</title>
+        <title>Netflix - Login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -49,7 +49,6 @@ function Login() {
       {/* Logo */}
       <div className="absolute cursor-pointer left-4 top-4 md:left-10 md:top-6">
         <Image
-          className=""
           src="/logo.svg"
           alt=""
           layout="fixed"
@@ -65,7 +64,7 @@ function Login() {
         className="relative rounded bg-black/75 mt-24 space-y-8 py-10 px-6
         md:mt-0 md:max-w-md md:px-14"
       >
-        <h1 className="text-4xl font-semibold">Sign in</h1>
+        <h1 className="text-4xl font-semibold">로그인</h1>
         <div className="space-y-4">
           {/* Email */}
           <label className="inline-block w-full">
@@ -79,7 +78,7 @@ function Login() {
             />
             {errors.email && (
               <p className="p-1 text-[13px] font-light  text-orange-500">
-                Please enter a valid email.
+                정확한 이메일 주소나 전화번호를 입력하세요.
               </p>
             )}
           </label>
@@ -96,7 +95,7 @@ function Login() {
           </label>
           {errors.password && (
             <p className="p-1 text-[13px] font-light  text-orange-500">
-              Your password must contain between 4 and 60 characters.
+              비밀번호는 4~60자 사이여야 합니다.
             </p>
           )}
         </div>
@@ -114,7 +113,7 @@ function Login() {
             className="text-white hover:underline"
             onClick={() => setLogin(false)}
           >
-            Sign up now
+            지금 가입하기
           </button>
         </div>
       </form>
