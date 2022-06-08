@@ -10,18 +10,18 @@ interface Inputs {
   password: string;
 }
 
-function Login() {
+function Register() {
   const router = useRouter();
-  const { signin } = useAuth();
+  const { signup } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-      await signin(data.email, data.password);
+    await signup(data.email, data.password);
   };
 
   return (
@@ -30,7 +30,7 @@ function Login() {
     md:items-center md:justify-center md:bg-transparent"
     >
       <Head>
-        <title>Netflix - Login</title>
+        <title>Netflix - Register</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -61,7 +61,7 @@ function Login() {
         className="relative rounded bg-black/75 mt-24 space-y-8 py-10 px-6
         md:mt-0 md:max-w-md md:px-14"
       >
-        <h1 className="text-4xl font-semibold">로그인</h1>
+        <h1 className="text-4xl font-semibold">회원가입</h1>
         <div className="space-y-4">
           {/* Email */}
           <label className="inline-block w-full">
@@ -100,16 +100,16 @@ function Login() {
         <button
           className="w-full rounded bg-[#e50914] py-3 font-semibold"
         >
-          Sign in
+          Sign up
         </button>
 
         <div className="text-[gray]">
-          New to Netflix?{" "}
+        Already Registered?{" "}
           <button
             className="text-white hover:underline"
-            onClick={() => router.push("/register")}
+            onClick={() =>router.push("/login")}
           >
-            지금 가입하기
+            로그인하기
           </button>
         </div>
       </form>
@@ -117,4 +117,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

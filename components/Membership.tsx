@@ -40,8 +40,8 @@ function Membership() {
           <p className="text-[gray]">Password: ********</p>
         </div>
         <div className="md:text-right">
-          <p className="membershipLink">이메일 변경하기</p>
-          <p className="membershipLink">비밀번호 변경하기</p>
+          <p className="membershipLink">이메일 변경하기(미구현)</p>
+          <p className="membershipLink">비밀번호 변경하기(미구현)</p>
         </div>
       </div>
 
@@ -55,10 +55,10 @@ function Membership() {
           </p>
         </div>
         <div className="md:text-right">
-          <p className="membershipLink">결제 정보</p>
-          <p className="membershipLink">결제 방법 저장</p>
-          <p className="membershipLink">결제 청구서</p>
-          <p className="membershipLink">결제일 변경</p>
+          <p className="membershipLink">결제 정보(미구현)</p>
+          <p className="membershipLink">결제 방법 저장(미구현)</p>
+          <p className="membershipLink">결제 청구서(미구현)</p>
+          <p className="membershipLink">결제일 변경(미구현)</p>
         </div>
       </div>
     </div>
