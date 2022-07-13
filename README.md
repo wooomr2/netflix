@@ -1,4 +1,3 @@
-## Deploy 주소
 https://netflix-wooomr2.vercel.app
 테스트 카드번호: 4242 4242 4242 4242
 
