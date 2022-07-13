@@ -9,7 +9,7 @@ https://netflix-wooomr2.vercel.app
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 - Firebase & Stripe 연동 정기 구독 시스템 구현
-- stripe 결제정보 DB에 연동되는 trigger Function 설정
+- 결제정보 DB에 연동되는 trigger Function 설정
 - Firebase Admin, Cloud 보안 규칙 설정
 - 상태관리 Recoil, context API
 - Custom-hook 연습
